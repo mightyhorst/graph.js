@@ -107,6 +107,7 @@ const Settings = (props) => {
                 }} value={selected} variant="scrollable"  aria-label="simple tabs example">
                     {props.settings.map( (item, index) => 
                         <Tab 
+                        key={index}
                         onClick={e => setSelected(index)}
                         style={{
                             "background": "rgb(24, 26, 27)"

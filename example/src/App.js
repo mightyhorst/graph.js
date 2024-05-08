@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import {Graph2D} from 'graph2d.js'
+// import {Graph2D} from 'graph2d.js'
+import {Graph2D} from './Graph2D'
 
 import InputFunction from './components/function'
 import { Resizable } from "re-resizable";
@@ -133,7 +134,7 @@ function App() {
       </div>    
     </Resizable>
 
-    <div style={{float: 'none', overflow: "hidden", background: "red" }}>
+    <div style={{float: 'none', overflow: "hidden", background: "white" }}>
       <Graph2D 
       canvasStyle={currentSettings} 
       functions={functions} 
