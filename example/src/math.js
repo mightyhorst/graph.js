@@ -33,8 +33,9 @@ const normalCrossSettings = {
 }
 
 const normalGridSettings = {
-    "lineWidth" : 2,
-    "strokeStyle": "#8f9192",
+    "lineWidth" : .81,
+    // "strokeStyle": "#8f9192",
+    "strokeStyle": "rgba(255,255,255,.1)",
     "fillStyle" : "white",
     "font" : "13px sans-serif"
 }
@@ -55,8 +56,9 @@ const normalTextSettings = {
 }
 
 const normalOuterGrid = {
-    "lineWidth" : 1,
-    "strokeStyle": "#333435",
+    "lineWidth" : .81,
+    // "strokeStyle": "#333435",
+    "strokeStyle": "rgba(255,255,255,.1)",
 }
 
 
