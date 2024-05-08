@@ -84,6 +84,7 @@ export const Graph2D = (props) => {
          */
         drawHoverCircle();
         drawHoverAxisLines();
+        drawHoverAxisLabels();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         ctx, 
@@ -395,6 +396,9 @@ export const Graph2D = (props) => {
             ctx.closePath();
         }
     }   
+    /**
+     * 🌳 @function draw hover axis lines
+     */
     const drawHoverAxisLines = () => {
         if (hoverPoint && ctx) {
             // Start a new path for the dashed lines
@@ -427,7 +431,26 @@ export const Graph2D = (props) => {
             // Close the path
             ctx.closePath();
         }
-    };    
+    };
+    
+    const drawHoverAxisLabels = () => {
+        if (hoverPoint && ctx) {
+
+            // Adding text labels on the axes
+            ctx.fillStyle = 'white';
+            ctx.font = '12px Arial'; // You can customize the font size and style
+            ctx.textAlign = 'center'; // Horizontal alignment for x-axis label
+            ctx.textBaseline = 'top'; // Vertical alignment for x-axis label
+            const xAxisLabel = `${toCartesianX(hoverPoint.x).toFixed(2)}`; // Customize as needed
+            ctx.fillText(xAxisLabel, hoverPoint.x, center.y + 5);
+    
+            ctx.textAlign = 'right'; // Horizontal alignment for y-axis label
+            ctx.textBaseline = 'middle'; // Vertical alignment for y-axis label
+            const yAxisLabel = `${toCartesianY(hoverPoint.y).toFixed(2)}`; // Customize as needed
+            ctx.fillText(yAxisLabel, center.x - 5, hoverPoint.y);
+        }
+    };
+    
      
 
     const handleMouseMove = (e) => {
