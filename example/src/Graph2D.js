@@ -82,7 +82,8 @@ export const Graph2D = (props) => {
         /**
          * 🌳 @event onHover - draw a point
          */
-        drawHoverCircle();   
+        drawHoverCircle();
+        drawHoverAxisLines();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         ctx, 
@@ -393,7 +394,41 @@ export const Graph2D = (props) => {
             ctx.fill();
             ctx.closePath();
         }
-    }    
+    }   
+    const drawHoverAxisLines = () => {
+        if (hoverPoint && ctx) {
+            // Start a new path for the dashed lines
+            ctx.beginPath();
+    
+            // Set the style for the dashed lines
+            ctx.strokeStyle = 'rgba(255,255,255,.5)';
+            ctx.lineWidth = .51;
+    
+            // Save the current line dash setting to restore later
+            const originalLineDash = ctx.getLineDash();
+            
+            // Set new dash pattern for the hover lines
+            ctx.setLineDash([5, 5]);
+    
+            // Draw vertical line from the x-axis to the hover point
+            ctx.moveTo(hoverPoint.x, center.y);
+            ctx.lineTo(hoverPoint.x, hoverPoint.y);
+    
+            // Draw horizontal line from the y-axis to the hover point
+            ctx.moveTo(center.x, hoverPoint.y);
+            ctx.lineTo(hoverPoint.x, hoverPoint.y);
+    
+            // Render the lines
+            ctx.stroke();
+    
+            // Restore the original line dash setting
+            ctx.setLineDash(originalLineDash);
+    
+            // Close the path
+            ctx.closePath();
+        }
+    };    
+     
 
     const handleMouseMove = (e) => {
         const pos2 = getMousePos(e);
@@ -429,7 +464,8 @@ export const Graph2D = (props) => {
             return;
         }
         else{
-        
+            setHoverPoint(null);
+
             const pos = getMousePos(e);
             
             setOffset(new Vector(
@@ -442,6 +478,11 @@ export const Graph2D = (props) => {
     const zoomIntoCursor = (event, delta) => {
         let mouse_pos = getMousePos(event);
         setZoom(prev_zoom => {
+            /**
+             * 🌳 @event hover - Remove the hover point
+             */
+            setHoverPoint(null); 
+
             let new_zoom = Math.max(prev_zoom + delta, 1);
 
             let prev_cmposX = (mouse_pos.x - center.x) / prev_zoom;
